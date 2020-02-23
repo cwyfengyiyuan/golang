@@ -1,1 +1,5 @@
 ＃怎么启动服务
+1.启动elasticsearch
+2.go run 分布式爬虫\crawler_distributed\worker\server\worker.go --port="端口号" #go run worker.go --help
+3.go run 分布式爬虫\crawler_distributed\persist\server\itemsaver.go --port="端口号" #go run itemsaver.go --help
+4. go 分布式爬虫\crawler_distributed\main.go --itemsaver_host=":端口号" --worker_hosts=":端口号,:端口号,..." # go run main.go --help
