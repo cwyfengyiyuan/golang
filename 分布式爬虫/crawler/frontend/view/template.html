@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .a{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container a">
+    <form action="" method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="搜索" value="{{.Query}}" aria-describedby="button-addon2" name="q">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+            </div>
+        </div>
+    </form>
+    <h5 style="text-align: center">共为你找到相关结果约为{{.Hits}}个,显示从{{.Start}}起共{{len .Items}}个</h5>
+    <table class="table table-hover table-bordered table-dark a">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Gender</th>
+            <th scope="col" colspan="3">详情</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range $index, $v := .Items}}
+        <tr>
+            <th scope="row">{{$index}}</th>
+            <td><a href="{{$v.Url}}">{{$v.Payload.name}}</a></td>
+            <td>{{$v.Payload.gender}}</td>
+            <td colspan="3">{{$v.Payload.user}}</td>
+        </tr>
+        {{else}}
+        <div>没有相关用户</div>
+        {{end}}
+        </tbody>
+        <div align="middle">
+            {{if ge .PrevFrom 0}}
+            <a href="search?q={{.Query}}&from={{.PrevFrom}}">上一页</a>
+            {{end}}
+            <a href="search?q={{.Query}}&from={{.NextFrom}}">下一页</a>
+        </div>
+    </table>
+</div>
+</body>
+</html>
